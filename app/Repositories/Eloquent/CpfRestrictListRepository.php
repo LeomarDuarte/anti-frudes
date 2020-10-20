@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\CpfRestrictList;
-use App\Exceptions\CpfException;
 use App\Repositories\AbstractRepository;
 use App\Repositories\Contracts\CpfRestrictListRepositoryInterface;
 
@@ -24,7 +23,7 @@ class CpfRestrictListRepository implements CpfRestrictListRepositoryInterface
     public function check(string $cpf)
     {
         if ($this->cpfRestrictList->where('cpf', $cpf)->doesntExist()) {
-            return CpfException::class;
+            return ['type' => 'NotFoundCpfException', 'message' => 'CPF not found.'];
         }
 
         return  $this->cpfRestrictList->where('cpf', $cpf)->first(['cpf', 'created_at']);
@@ -33,7 +32,7 @@ class CpfRestrictListRepository implements CpfRestrictListRepositoryInterface
     public function remove(string $cpf)
     {
         if ($this->cpfRestrictList->where('cpf', $cpf)->doesntExist()) {
-            return "NotFoundCpfException";
+            return ['type' => 'NotFoundCpfException', 'message' => 'CPF not found.'];
         }
 
         return  $this->cpfRestrictList->where('cpf', $cpf)->delete();
