@@ -50,7 +50,7 @@ $app->singleton(
 
 $app->bind(
     'App\Repositories\Contracts\CpfRestrictListRepositoryInterface',
-    'App\Repositories\Eloquent\CpfRestrictListRepository',
+    'App\Repositories\CpfRestrictListRepository',
 );
 
 
@@ -79,11 +79,11 @@ $app->configure('app');
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//     App\Http\Middleware\CpfMiddleware::class
 // ]);
 
 // $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
+//     'cpf' => App\Http\Middleware\CpfMiddleware::class,
 // ]);
 
 /*
