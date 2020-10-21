@@ -15,12 +15,15 @@
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\v1'], function () use ($router) {
 
-    // Add CPF - Adiciona um CPF na lista restrita (US01)
-    $router->post('cpf', ['as' => 'cpf.create', 'uses' => 'CpfRestrictListController@store']);
-    
     // Find All CPFs - Retorna a lista de CPF's da lista restrita (US04)
     $router->get('cpf', ['as' => 'cpf.index', 'uses' => 'CpfRestrictListController@index']);
 
+    // Add CPF - Adiciona um CPF na lista restrita (US01)
+    $router->post('cpf', ['as' => 'cpf.create', 'uses' => 'CpfRestrictListController@store']);
+    
     // Check CPF - Verifica se um CPF está adicionado na lista restrita (US02)
     $router->get('cpf/{cpf}', ['as' => 'cpf.show', 'uses' => 'CpfRestrictListController@show']);
+
+    // Remove CPF - Remove um CPF adicionado na lista restrita (US03)
+    $router->delete('cpf/{cpf}', ['as' => 'cpf.destroy', 'uses' => 'CpfRestrictListController@destroy']);
 });
