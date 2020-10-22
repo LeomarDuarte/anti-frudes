@@ -32,6 +32,10 @@ Sistema anti-fraudes que adiciona CPFs em uma lista de restrição
 
     `php artisan key:generate`
 
+- Executar as migrações
+
+    'php artisan migrate'
+
 ### Up Application
 
 - Localhost

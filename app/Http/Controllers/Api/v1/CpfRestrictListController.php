@@ -21,7 +21,7 @@ class CpfRestrictListController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         try {
-            return response()->json($this->cpfRestrictListRepository->findAll(), Response::HTTP_OK);
+            return response()->json(['Content' => $this->cpfRestrictListRepository->findAll()], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json(['erro' => 'Internal server erro.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -30,7 +30,7 @@ class CpfRestrictListController extends Controller
     public function show(string $cpf): \Illuminate\Http\JsonResponse
     {
         try {
-            return response()->json($this->cpfRestrictListRepository->check($cpf), Response::HTTP_OK);
+            return response()->json(['Content' => $this->cpfRestrictListRepository->check($cpf)], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json(['erro' => 'Internal server erro.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -39,9 +39,10 @@ class CpfRestrictListController extends Controller
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            return response()->json($this->cpfRestrictListRepository->add($request->all()), Response::HTTP_OK);
+            return response()->json(['Content' => $this->cpfRestrictListRepository->add($request->cpf)], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
-            return response()->json(['erro' => 'Internal server erro.'.$th->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json($th->getMessage());
+            return response()->json(['erro' => 'Internal server erro.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

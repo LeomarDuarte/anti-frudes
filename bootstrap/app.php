@@ -53,6 +53,10 @@ $app->bind(
     'App\Repositories\CpfRestrictListRepository',
 );
 
+$app->bind(
+    'Builders\CpfRestrictListBuilderInterface',
+    'Builders\CpfRestrictListBuilder',
+);
 
 /*
 |--------------------------------------------------------------------------
