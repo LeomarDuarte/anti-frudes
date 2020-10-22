@@ -17,15 +17,15 @@ class CpfRestrictListRepository implements CpfRestrictListRepositoryInterface
         $this->cpfRestrictList = $cpfRestrictList;
     }
 
-    public function add(array $dataParams)
+    public function add(string $cpf)
     {
-        if (preg_match('/(\d)\1{10}/', $dataParams['cpf'])) {
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
             return response()->json(['type' => 'InvalidCpfException', 'message' => 'CPF is not valid.'], Response::HTTP_PRECONDITION_FAILED);
-        } elseif ($this->cpfRestrictList->where('cpf', $dataParams['cpf'])->exists()) {
+        } elseif ($this->cpfRestrictList->where('cpf', $cpf)->exists()) {
             return response()->json(['type' => 'ExistsCpfException', 'message' => 'CPF already registered.'], Response::HTTP_PRECONDITION_FAILED);
         }
 
-        return $this->cpfRestrictList->create($dataParams);
+        return  $this->cpfRestrictList->create(['cpf' => $cpf])->only(['cpf', 'createdAt']);
     }
 
     public function check(string $cpf)
@@ -36,7 +36,7 @@ class CpfRestrictListRepository implements CpfRestrictListRepositoryInterface
             return ['type' => 'NotFoundCpfException', 'message' => 'CPF not found.'];
         }
 
-        return  $this->cpfRestrictList->where('cpf', $cpf)->first(['cpf', 'created_at']);
+        return  $this->cpfRestrictList->where('cpf', $cpf)->first(['cpf', 'createdAt']);
     }
 
     public function remove(string $cpf)
@@ -52,6 +52,6 @@ class CpfRestrictListRepository implements CpfRestrictListRepositoryInterface
 
     public function findAll()
     {
-        return $this->cpfRestrictList->all(['cpf', 'created_at']);
+        return $this->cpfRestrictList->all(['cpf', 'createdAt']);
     }
 }

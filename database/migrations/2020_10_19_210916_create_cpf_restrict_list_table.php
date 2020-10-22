@@ -16,7 +16,8 @@ class CreateCpfRestrictListTable extends Migration
         Schema::create('cpf_restrict_list', function (Blueprint $table) {
             $table->id();
             $table->string('cpf', 11);
-            $table->timestamps();
+            $table->timestamp('createdAt');
+            $table->timestamp('updatedAt');
         });
     }
 

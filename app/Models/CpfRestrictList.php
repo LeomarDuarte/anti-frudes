@@ -11,4 +11,7 @@ class CpfRestrictList extends Model
     
     protected $table = 'cpf_restrict_list';
     protected $fillable = ['cpf'];
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
 }
